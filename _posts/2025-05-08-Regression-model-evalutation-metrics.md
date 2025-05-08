@@ -27,7 +27,7 @@ At the core of regression evaluation is the concept of **residuals** - the diffe
 
 $$\text{Residual} = y_i - \hat{y}_i$$
 
-Where $y_i$ is the actual value and $\hat{y}_i$ is the predicted value.
+Where __$$y_i$$__ is the actual value and __$$\hat{y}_i$$__ is the predicted value.
 
 ### Bias and Error
 
@@ -37,9 +37,9 @@ Where $y_i$ is the actual value and $\hat{y}_i$ is the predicted value.
 
 The process typically flows from model construction to evaluation to refinement:
 
-1. Build an initial regression model
-2. Measure performance using appropriate metrics
-3. Identify weaknesses and improve the model
+1. Build the model
+2. Evaluate the model
+3. Improve the model
 4. Repeat until reaching satisfactory performance
 
 ## Quick Reference: Metrics Comparison Table
@@ -111,8 +111,8 @@ R² represents the proportion of variance in the dependent variable that can be 
 $$R^2 = 1 - \frac{RSS}{TSS}$$
 
 Where:
-- RSS (Residual Sum of Squares): $\sum(y_i - \hat{y}_i)^2$
-- TSS (Total Sum of Squares): $\sum(y_i - \bar{y})^2$
+- RSS (Residual Sum of Squares): $$\sum(y_i - \hat{y}_i)^2$$
+- TSS (Total Sum of Squares): $$\sum(y_i - \bar{y})^2$$
 
 #### Interpretation:
 - Ranges typically from 0 to 1 (can be negative for very poor models)

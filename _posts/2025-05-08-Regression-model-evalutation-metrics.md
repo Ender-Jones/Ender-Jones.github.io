@@ -2,7 +2,7 @@
 title: Regression Model Evaluation Metrics
 description: Random notes on regression model evaluation metrics, and some base/side knowledge.
 date: 2025-05-08 17:00:00 +0900
-categories: [blogging]
+categories: [study]
 tags: [AI, study]
 pin: false
 math: true

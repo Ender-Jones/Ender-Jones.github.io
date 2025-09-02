@@ -1,14 +1,15 @@
 ---
 title: My Take on Prompt Engineering and Major AI Models
-description: A pragmatic look at prompt engineering and a personal comparison of today's leading AI models.
+description: A pragmatic look at prompt engineering, with practical techniques and a personal comparison of today's leading AI models like Claude, GPT, and Gemini.
 date: 2025-09-01 22:49:00 +0900
 categories: [study]
-tags: [AI, Prompt Engineering, LLM, study]
+tags: [AI, Prompt Engineering, LLM, study, claude, gpt, gemini, ai models]
 pin: true
 math: false
 mermaid: false
 image:
   path: /assets/img/AiTake/chatgpt-plus.jpg
+  alt: ChatGPT Plus
 ---
 
 # My Stance on Prompt Engineering

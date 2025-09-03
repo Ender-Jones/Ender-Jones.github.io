@@ -113,11 +113,8 @@
   */
 
   --sidebar-bg: rgba(15, 18, 22, 0.86) !important;
-
   --seam-fade-width: 64px;
-
   --seam-fade-start: rgba(10, 12, 15, 0.6);
-
   --seam-fade-end: rgba(10, 12, 15, 0);
 
 
@@ -143,31 +140,18 @@
     注意：如需更克制，可删除第 2~5 层；性能敏感时也可先移除网格层。
   */
 
-  #main-wrapper {
-
-    background-color: var(--main-bg) !important;
-
-    /* 左缘淡入 + Mesh 辉光 + 低对比网格 */
-
-    background-image:
-
-      linear-gradient(to right, var(--seam-fade-start), var(--seam-fade-end)),
-
-      radial-gradient(600px 420px at 8% 10%, rgba(34, 211, 238, 0.08), transparent 60%),
-
-      radial-gradient(600px 420px at 92% 22%, rgba(168, 85, 247, 0.07), transparent 60%),
-
-      linear-gradient(0deg, rgba(255, 255, 255, 0.008) 1px, transparent 1px),
-
-      linear-gradient(90deg, rgba(255, 255, 255, 0.008) 1px, transparent 1px);
-
-    background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
-
-    background-size: var(--seam-fade-width) 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
-
-    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
-
-  }
+#main-wrapper {
+  background-color: var(--main-bg) !important;
+  background-image:
+    linear-gradient(to right, var(--seam-fade-start), var(--seam-fade-end)),
+    radial-gradient(600px 420px at 6% 7%, rgba(34, 211, 238, 0.08), transparent 60%),
+    radial-gradient(600px 420px at 92% 22%, rgba(168, 85, 247, 0.1), transparent 60%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
+  background-size: var(--seam-fade-width) 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;  
+}
 
 
 
@@ -475,12 +459,25 @@
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
 
-  // 放大并水平居中头像（不改变标题与描述的左对齐）
+  // 头像的外层容器
   #avatar {
+    // 尺寸设置保持不变
     width: 8.75rem !important;
     height: 8.75rem !important;
+    border-radius: 16px !important; // 可以稍微加大一点圆角，让外框更柔和
+
+    // 关键：直接设置霓虹粉色边框和辉光
+    border: 1px solid var(--accent-color) !important; // 直接使用霓虹粉作为边框颜色
+    box-shadow: 0 0 12px 0px var(--accent-color) !important; // 默认状态就带有辉光
+    
+    // 去掉内边距，让图片填满边框
+    padding: 0 !important;
+    
+    // 去掉放大动画，但保留其他过渡效果
+    transition: box-shadow 0.3s ease-out, border-color 0.3s ease-out;
   }
 
+  // 桌面端的尺寸调整
   @media all and (min-width: 576px) {
     #avatar {
       width: 10rem !important;
@@ -488,11 +485,19 @@
     }
   }
 
-  // 让图片适配放大后的容器，保持圆形裁切
+  // 头像的图片本身
   #avatar img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
+    border-radius: 16px !important; // 让图片的圆角和外框完全一致
+  }
+
+  // --- 交互效果 ---
+  // 鼠标悬停在头像上时，可以让辉光变得更强一点
+  #avatar:hover {
+    border-color: #ffffff; // 悬停时边框可以变成白色，辉光更明显
+    box-shadow: 0 0 24px 0px var(--accent-color); // 辉光范围变大
   }
 
   // 侧边栏的导航链接（兼容旧的 #nav-list 与当前 ul.nav 结构）

@@ -20,7 +20,21 @@
   --accent-color: #f472b6;       // 霓虹粉
   --accent-hover-color: #38bdf8;   // 霓虹蓝
   --accent-border-color: #db2777;  // 深粉色
-
+  --accent-color-glow: rgba(244, 114, 182, 0.07); // 新增：霓虹粉辉光
+  --accent-color-border-inset: rgba(244, 114, 182, 0.12); // 新增：霓虹粉内边框
+  --sidebar-highlight: radial-gradient(circle at 100% 65%, rgba(56,189,248, 0.035) -10%, transparent 25%); // 新增：头像区域高光
+  --separator-color: rgba(255, 255, 255, 0.08); // 新增：分割线颜色
+  --accent-color-hover-bg: rgba(244, 114, 182, 0.1); // 新增：链接悬停背景色
+  --sidebar-glow-color: rgba(244, 114, 182, 0.14); // 新增：侧栏默认微光（更可见）
+  --avatar-glow: rgba(244, 114, 182, 0.08); // 新增：头像弱发光
+  --avatar-glow-strong: rgba(244, 114, 182, 0.16); // 新增：头像强发光
+  /* 侧栏各项专属色 */
+  --nav-home: #f472b6;       /* 霓虹粉 */
+  --nav-categories: #22d3ee; /* 霓虹青 */
+  --nav-tags: #a78bfa;       /* 霓虹紫 */
+  --nav-archives: #34d399;   /* 霓虹绿 */
+  --nav-about: #f59e0b;      /* 霓虹琥珀 */
+  
   // -- 链接颜色 (覆盖主题默认值) --
   --link-color: #e9ecef;
   --link-hover-color: var(--accent-hover-color);
@@ -48,6 +62,11 @@
   --seam-fade-end: rgba(10, 12, 15, 0);
 }
 
+/* 隐藏主题归属标语（页脚最后一个段落） */
+footer p:last-child {
+  display: none !important;
+}
+
 // --- 2. 应用所有具体的样式规则 ---
 // 所有需要用选择器指定的样式，都放在这个唯一的代码块里
 [data-mode="dark"] {
@@ -65,25 +84,42 @@
 
   // -- 左侧边栏 (Sidebar) --
   #sidebar {
-    background: rgba(25, 27, 32, 0.75) !important;
+    background-color: rgba(25, 27, 32, 0.75) !important;
+    background-image: var(--sidebar-highlight) !important;
+    background-repeat: no-repeat !important;
     backdrop-filter: blur(12px) saturate(120%);
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-right: none !important; /* 用下面的辉光效果代替原有的硬边框 */
+    box-shadow: 
+      inset -1px 0 0 0 var(--accent-color-border-inset), /* 在右侧添加1px内描边 */
+      3px 0 18px -4px var(--accent-color-glow); /* 在右侧添加外发光 */
   }
+
+  /* --- 侧边栏内部元素分隔 --- */
+  #nav-wrapper,
+  .sidebar-bottom {
+    border-top: 1px solid var(--separator-color) !important;
+    padding-top: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
   // 头像的外层容器
   #avatar {
     // 尺寸设置保持不变
     width: 8.75rem !important;
     height: 8.75rem !important;
-    border-radius: 16px !important; // 可以稍微加大一点圆角，让外框更柔和
+    border-radius: 10px !important; // 可以稍微加大一点圆角，让外框更柔和
     // 关键：直接设置霓虹粉色边框和辉光
-    border: 1px solid var(--accent-color) !important; // 直接使用霓虹粉作为边框颜色
-    box-shadow: 0 0 12px 0px var(--accent-color) !important; // 默认状态就带有辉光
+    border: 1px solid rgba(244, 114, 182, 0.55) !important; // 降低边框亮度
+    box-shadow: none !important; // 方案D：去掉外发光
+    animation: none !important; // 关闭呼吸动效
+    position: relative;
+    overflow: visible;
     
     // 去掉内边距，让图片填满边框
     padding: 0 !important;
     
     // 去掉放大动画，但保留其他过渡效果
-    transition: box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+    transition: box-shadow 0.1s ease-out, border-color 0.1s ease-out;
   }
   // 桌面端的尺寸调整
   @media all and (min-width: 576px) {
@@ -97,22 +133,125 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
-    border-radius: 16px !important; // 让图片的圆角和外框完全一致
+    border-radius: 10px !important; // 让图片的圆角和外框完全一致
   }
   // --- 交互效果 ---
   // 鼠标悬停在头像上时，可以让辉光变得更强一点
   #avatar:hover {
-    border-color: #ffffff; // 悬停时边框可以变成白色，辉光更明显
-    box-shadow: 0 0 24px 0px var(--accent-color); // 辉光范围变大
+    border-color: var(--accent-color);
   }
-  // 侧边栏的导航链接（兼容旧的 #nav-list 与当前 ul.nav 结构）
+
+  /* 方案D：赛博角线装饰 */
+  #avatar::before,
+  #avatar::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    opacity: 0.45;
+    transition: opacity 0.25s ease;
+  }
+
+  /* 左上角：主色 */
+  #avatar::before {
+    top: -6px; /* 移到边框外侧 */
+    left: -6px;
+    background-image:
+      linear-gradient(90deg, var(--accent-color) 0, var(--accent-color) 100%),
+      linear-gradient(180deg, var(--accent-color) 0, var(--accent-color) 100%);
+    background-size: 22px 2px, 2px 22px;
+    background-position: 0 0, 0 0;
+    background-repeat: no-repeat;
+  }
+
+  /* 右下角：副色 */
+  #avatar::after {
+    right: -6px; /* 移到边框外侧 */
+    bottom: -6px;
+    background-image:
+      linear-gradient(90deg, var(--accent-hover-color) 0, var(--accent-hover-color) 100%),
+      linear-gradient(180deg, var(--accent-hover-color) 0, var(--accent-hover-color) 100%);
+    background-size: 22px 2px, 2px 22px;
+    background-position: right bottom, right bottom;
+    background-repeat: no-repeat;
+  }
+
+  #avatar::before,
+  #avatar::after { opacity: 0.45; }
+  #avatar:hover::before,
+  #avatar:hover::after { opacity: 0.85; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #avatar { animation: none !important; }
+  }
+
+  /* --- 导航链接样式重构 --- */
   #nav-list .nav-item .nav-link,
   #sidebar ul.nav .nav-item .nav-link,
   #sidebar .nav .nav-item .nav-link {
-    padding: 0.5rem 1rem !important;
-    border-radius: 8px; // 加上圆角
-    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    padding: 0.5rem 1rem 0.5rem 1.75rem !important; /* 增加左边距给指示器留出空间 */
+    border-radius: 8px;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    position: relative; /* 为 ::before 伪元素定位 */
+    background-color: transparent !important; /* 确保默认无背景色 */
   }
+  
+  /* 悬停效果 (非激活状态) */
+  #nav-list .nav-item:not(.active) .nav-link:hover,
+  #sidebar .nav .nav-item:not(.active) .nav-link:hover {
+    background-color: var(--accent-color-hover-bg) !important;
+    color: #fff !important;
+  }
+
+  /* 导航指示器 (小竖条) */
+  #nav-list .nav-item .nav-link::before,
+  #sidebar .nav .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px; /* 方案E：更细的常驻指示线 */
+    height: 35%; /* 默认常驻高度 */
+    opacity: 0.28; /* 默认弱光 */
+    border-radius: 3px;
+    background-color: var(--accent-color);
+    transition: height 0.25s ease-out, opacity 0.25s ease-out;
+  }
+
+  /* 悬停时指示器出现 */
+  #nav-list .nav-item:not(.active) .nav-link:hover::before,
+  #sidebar .nav .nav-item:not(.active) .nav-link:hover::before {
+    height: 65%;
+    opacity: 0.7;
+  }
+
+  /* 激活时指示器更长 */
+  #nav-list .nav-item.active .nav-link::before,
+  #sidebar .nav .nav-item.active .nav-link::before {
+    height: 85%;
+    opacity: 1;
+  }
+
+  /* --- 侧栏各项独立配色：仅作用图标与左侧指示线 --- */
+  /* Home */
+  #sidebar .nav .nav-item .nav-link[href="/"]::before { background-color: var(--nav-home) !important; }
+  #sidebar .nav .nav-item .nav-link[href="/"] > i { color: var(--nav-home) !important; opacity: 0.9; }
+  /* Categories */
+  #sidebar .nav .nav-item .nav-link[href="/categories/"]::before { background-color: var(--nav-categories) !important; }
+  #sidebar .nav .nav-item .nav-link[href="/categories/"] > i { color: var(--nav-categories) !important; opacity: 0.9; }
+  /* Tags */
+  #sidebar .nav .nav-item .nav-link[href="/tags/"]::before { background-color: var(--nav-tags) !important; }
+  #sidebar .nav .nav-item .nav-link[href="/tags/"] > i { color: var(--nav-tags) !important; opacity: 0.9; }
+  /* Archives */
+  #sidebar .nav .nav-item .nav-link[href="/archives/"]::before { background-color: var(--nav-archives) !important; }
+  #sidebar .nav .nav-item .nav-link[href="/archives/"] > i { color: var(--nav-archives) !important; opacity: 0.9; }
+  /* About */
+  #sidebar .nav .nav-item .nav-link[href="/about/"]::before { background-color: var(--nav-about) !important; }
+  #sidebar .nav .nav-item .nav-link[href="/about/"] > i { color: var(--nav-about) !important; opacity: 0.9; }
+
+  /* 保持原有的激活状态样式 */
   #nav-list .nav-item.active .nav-link {
     background-color: var(--accent-color) !important;
     color: #1a1a1a !important;
@@ -120,6 +259,8 @@
     box-shadow: 0 0 12px 0px var(--accent-color) !important;
     border-radius: 8px;
   }
+
+  /* 底部社交图标悬停效果 */
   #social-list a:hover,
   #sidebar .sidebar-bottom a:hover {
     color: var(--accent-color) !important;
@@ -129,14 +270,25 @@
   #topbar-wrapper {
     background: rgba(15, 18, 22, 0.7) !important;
     backdrop-filter: blur(10px) saturate(120%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: none !important; /* 移除原生底边框 */
+    box-shadow: 
+      inset 0 -1px 0 0 var(--accent-color-border-inset), /* 添加1px内描边 */
+      0 3px 18px -4px var(--accent-color-glow); /* 添加外发光 */
   }
   #topbar {
     background: transparent !important;
   }
+
+  /* --- 清理并重设：面包屑链接悬停颜色 --- */
+  /* 统一只保留这一条高优先级规则 */
+  #topbar-wrapper #breadcrumb a:hover {
+    color: var(--accent-color) !important;
+    text-decoration-color: var(--accent-color) !important;
+  }
+
   #search:hover {
-    border-color: rgba(34, 211, 238, 0.35) !important;
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.08);
+    border-color: rgba(219, 39, 119, 0.35) !important;
+    box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.08);
   }
   // -- 右侧边栏 (TOC & Tags) --
   #toc {
@@ -202,6 +354,25 @@
     background: transparent !important;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     opacity: 0.85;
+  }
+
+  /* --- 重设：侧边栏默认“常亮微光”（不影响 hover） --- */
+  #sidebar .nav .nav-item .nav-link,
+  #sidebar ul.nav .nav-item .nav-link,
+  #nav-list .nav-item .nav-link {
+    text-shadow: 0 0 8px var(--sidebar-glow-color) !important;
+  }
+
+  /* 覆盖到图标元素，确保 Font Awesome 图标也有微光 */
+  #sidebar .nav .nav-item .nav-link > i,
+  #social-list a > i,
+  #sidebar .sidebar-bottom a > i {
+    text-shadow: 0 0 8px var(--sidebar-glow-color) !important;
+  }
+
+  #sidebar .sidebar-bottom a,
+  #social-list a {
+    text-shadow: 0 0 8px var(--sidebar-glow-color) !important;
   }
 }
 

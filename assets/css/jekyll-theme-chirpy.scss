@@ -1,34 +1,37 @@
 ---
 --- 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Noto-Sans:wght@400;700&family=Fira+Code:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
 @import "main"; // 首先，加载主题默认的所有样式
 
+/* ==========================================================================
+   My Custom Styles - The Great Fusion Version
+   ========================================================================== */
 
-// --- 1. 定义全局的自定义变量 ---
-// 我们把所有自定义的“颜料桶”都集中放在 :root 里，这是最高优先级的定义方式
+// --- 1. 定义所有全局变量 ---
+// 我们把所有自定义的“颜料桶”都集中放在这唯一一个 :root 里
 :root[data-mode="dark"] {
   
-  // -- 字体 --
+  // -- 字体 (使用你喜欢的新定义) --
   --font-family-base: 'Noto Sans', sans-serif !important;
   --font-family-heading: 'Fira Code', monospace !important;
   --font-family-monospace: 'Fira Code', monospace !important;
 
   // -- 强调色 --
-  --accent-color: #f472b6;
-  --accent-hover-color: #38bdf8;
-  --accent-border-color: #db2777;
+  --accent-color: #f472b6;       // 霓虹粉
+  --accent-hover-color: #38bdf8;   // 霓虹蓝
+  --accent-border-color: #db2777;  // 深粉色
 
-  // -- 链接颜色 --
+  // -- 链接颜色 (覆盖主题默认值) --
   --link-color: #e9ecef;
   --link-hover-color: var(--accent-hover-color);
   
-  // -- 按钮/标签颜色 --
+  // -- 按钮/标签颜色 (覆盖主题默认值) --
   --button-text-color: #dbeafe;
   --button-border-color: var(--accent-border-color);
   --button-hover-bg: var(--accent-color);
   --button-hover-text-color: #1e293b;
   --button-hover-border-color: var(--accent-color);
-
+  
   // -- 基础背景与文字 --
   --body-bg: #070809;
   --main-bg: #0a0c0f;
@@ -37,435 +40,41 @@
   --heading-color: #ffffff;
   --muted-color: #a6adb6;
   --border-color: #1a1f26;
-}
 
-
-[data-mode="dark"] {
-
-  // 应用字体
-  body {
-    font-family: var(--font-family-body) !important;
-  }
-  h1, h2, h3, h4, h5, h6, code, pre {
-    font-family: var(--font-family-heading) !important;
-  }
-
-
-
-  // -- 基础背景与文字（高对比：90% 黑 + 近白文字） --
-  // 用于控制“底 -> 主 -> 卡片”的三层背景深浅，以及文字层级颜色。
-  // 调暗：降低 --main-bg / --panel-bg 明度即可；调亮反之。
-
-  --body-bg: #070809 !important;
-
-  --main-bg: #0a0c0f !important;
-
-  --panel-bg: #0f1216 !important;
-
-  --text-color: #f1f3f5 !important;
-
-  --heading-color: #ffffff !important;
-
-  --muted-color: #a6adb6 !important;
-
-  --border-color: #1a1f26 !important;
-
-
-
-  // -- 限量使用的霓虹强调色（仅在 hover/按钮/少量元素上出现） --
-  // 说明：避免“全站泛蓝/泛青”。默认链接为近白，只有悬停或按钮态才点亮霓虹色。
-
-  --accent: #f472b6 !important; // 霓虹粉（主强调）
-
-  --accent-600: #38bdf8  !important; // 悬停时变成霓虹蓝
-
-  --accent-700: #db2777   !important; // 描边/分隔
-
-  --accent-2: #f472b6 !important; // 次强调（霓虹紫，用于 mesh 装饰）
-
-  --sidebar-mark-color: rgba(255, 128, 0, 0.51) !important; // 右栏竖线（标题左侧与 TOC 连线）
-
-
-
-  // -- 链接与交互 --
-  // 默认近白（不喧宾夺主），悬停才切换到霓虹强调。
-
-  --link-color: #e9ecef !important; // 默认近白
-
-  --link-hover-color: var(--accent) !important; // 悬停霓虹
-
-
-
-  // -- 引用等内容元素 --
-  --blockquote-border-color: var(--accent-700) !important;
-
-
-
-  /* --- Sidebar Edge Fade --- */
-  /*
-    说明：
-    - 左缘淡入不再用 #sidebar 的伪元素，而是叠加在 #main-wrapper 背景图层的第 1 层线性渐变上，
-      这样不会阻挡交互，也不会影响布局与滚动。
-    - 仅需通过下列变量控制淡入带宽度与强度：
-      --seam-fade-width   左侧淡入的宽度
-      --seam-fade-start   淡入起始颜色（含透明度）
-      --seam-fade-end     淡入结束颜色（通常透明）
-  */
-
-  --sidebar-bg: rgba(15, 18, 22, 0.86) !important;
+  // -- 侧边栏 --
+  --sidebar-bg: rgba(15, 18, 22, 0.86);
   --seam-fade-width: 64px;
   --seam-fade-start: rgba(10, 12, 15, 0.6);
   --seam-fade-end: rgba(10, 12, 15, 0);
-
-
-
-  body {
-
-    background: var(--body-bg) !important;
-
-    color: var(--text-color) !important;
-
-  }
-
-
-
-  /*
-
-    #main-wrapper 背景层（从上到下，依次列出 5 层）：
-    1) 左缘淡入：linear-gradient(to right, --seam-fade-start → --seam-fade-end)
-    2) mesh 辉光 A：左上角青色（极弱），营造氛围
-    3) mesh 辉光 B：右上角紫色（极弱），与 A 平衡
-    4) 横向网格：低透明白线（可下调透明度或移除）
-    5) 纵向网格：低透明白线（可下调透明度或移除）
-    注意：如需更克制，可删除第 2~5 层；性能敏感时也可先移除网格层。
-  */
-
-#main-wrapper {
-  background-color: var(--main-bg) !important;
-  background-image:
-    linear-gradient(to right, var(--seam-fade-start), var(--seam-fade-end)),
-    radial-gradient(600px 420px at 6% 7%, rgba(34, 211, 238, 0.08), transparent 60%),
-    radial-gradient(600px 420px at 92% 22%, rgba(168, 85, 247, 0.1), transparent 60%),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
-  background-size: var(--seam-fade-width) 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
-  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;  
 }
 
+// --- 2. 应用所有具体的样式规则 ---
+// 所有需要用选择器指定的样式，都放在这个唯一的代码块里
+[data-mode="dark"] {
 
-
-  /*
-    全局留白：
-    - 增加内容块、标题与段落的垂直间距，阅读更“有呼吸感”。
-    - 段落行高提高到约 1.85，适配深色背景下的长文阅读。
-  */
-
-  .post-content>* {
-    margin-top: 1.1rem;
+  // -- 背景特效 --
+  #main-wrapper {
+    background-color: var(--main-bg) !important;
+    background-image:
+      linear-gradient(to right, var(--seam-fade-start), var(--seam-fade-end)),
+      radial-gradient(600px 420px at 8% 10%, rgba(34, 211, 238, 0.08), transparent 60%),
+      radial-gradient(600px 420px at 92% 22%, rgba(168, 85, 247, 0.07), transparent 60%);
+    background-repeat: no-repeat;
+    background-size: var(--seam-fade-width) 100%, 100% 100%, 100% 100%;
   }
 
-  .post-content h2 {
-    margin-top: 2.2rem;
-  }
-
-  .post-content h3 {
-    margin-top: 1.6rem;
-  }
-
-  .post-content p {
-    line-height: 1.85;
-  }
-
-
-
-  /* --- Recently Updated 链接样式 (更精确的定位) --- */
-  #sidebar .post-preview a {
-    // 默认状态：去掉下划线
-    text-decoration: none !important;
-    border-bottom: none !important; 
-    // 让它也带上平滑的过渡
-    transition: all 0.2s ease-out;
-  }
-  // Recently Updated 链接悬停时，使用背景高亮
-  #sidebar .post-preview a:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border-radius: 5px;
-    text-decoration: none !important;
-    border-bottom: none !important;
-  }
-
-
-  /* 引用块：干净描边 + 微透底 */
-  blockquote {
-
-    border-left: 3px solid var(--blockquote-border-color) !important;
-
-    color: var(--muted-color) !important;
-
-    background: rgba(255, 255, 255, 0.02);
-
-  }
-
-
-
-  /* 代码块与图片：深底 + 细描边 + 圆角 + 低阴影（克制的卡片感） */
-  // 代码块：仅外层 .highlight 设背景；内层 pre/code 透明，避免双层圆角/底色
-  .highlight {
-    background: #0b0d11 !important;
-  }
-  .highlight pre,
-  .highlight code {
-    background: transparent !important;
-  }
-
-  .highlight {
-
-    border: 1px solid var(--border-color) !important;
-
-    border-radius: 10px !important;
-
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 8px 24px rgba(0, 0, 0, .32);
-
-  }
-
-  .post-content img,
-  .content img,
-  .img-link img,
-  .preview-img img,
-  img.post-image {
-
-    border: 1px solid var(--border-color) !important;
-
-    border-radius: 12px !important;
-
-    background: #0b0d11;
-
-  }
-
-
-
-  /* 右侧 TOC：仅给 #toc 本体加玻璃态，
-     - #toc-wrapper 透明（避免双层背景叠加导致的渲染伪影）
-     - 隐藏 .toc-border-cover（主题内置遮挡层），并开启 #toc 的 overflow: hidden 以配合圆角 */
-
-  #toc {
-
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-
-    border-radius: 12px !important;
-
-    background: rgba(255, 255, 255, 0.04) !important;
-
-    backdrop-filter: blur(10px) saturate(120%);
-
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
-
-    overflow: hidden;
-
-  }
-
-  #toc-wrapper {
-    margin-top: 2.4rem !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .toc-border-cover {
-    display: none !important;
-  }
-
-  h2.panel-heading+.d-flex.flex-wrap {
-    margin-bottom: 1.25rem !important;
-  }
-
-
-
-  /* 右栏竖线颜色：
-     - 标题左侧小竖线：aside h2.panel-heading::before 使用 --sidebar-mark-color
-     - 目录树连线：#toc .toc-link::before 使用 --sidebar-mark-color
-     - 激活项连线：#toc .is-active-link::before 使用 --accent（便于定位） */
-
-  aside h2.panel-heading::before {
-    background-color: var(--sidebar-mark-color) !important;
-  }
-
-/* 默认的目录连接线，使用一个柔和的灰色 */
-  #toc .toc-link::before {
-    background-color: #4a4a4a !important; // 将默认的橙色/粉色线改成深灰色
-    width: 2px !important; // 可以稍微加粗一点，让它更有存在感
-  }
-
-
-#toc .toc-link:hover,
-#toc .is-active-link {
-  background-color: rgba(255, 255, 255, 0.05) !important; // 使用一个非常淡的白色背景来高亮
-  border-radius: 6px !important; // 加上圆角，更精致
-  box-shadow: none !important; // 关键：去掉那个“雾蒙蒙”的阴影
-}
-
-
-  /* 侧栏默认更中性，hover 才强调 */
-  #sidebar a {
-    color: #d3d6db !important;
-  }
-
-  #sidebar a:hover {
-    color: var(--link-hover-color) !important;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 8px;
-  }
-
-
-
-  /* --- Trending Tags 样式 (更高优先级) --- */
-  .post-tag.btn {
-    // 默认状态：使用我们定义的深粉色作为边框
-    border-color: var(--accent-700) !important;
-    // 默认文字颜色
-    color: #dbeafe !important;
-    // 添加过渡动画，让变化更平滑
-    transition: all 0.2s ease-out;
-  }
-
-  // 标签按钮悬停时，加上辉光效果
-  .post-tag.btn:hover {
-    box-shadow: 0 0 12px 0px var(--accent-color) !important;
-    transition: all 0.2s ease-out;
-  }
-
-
-
-/* --- Topbar Glassmorphism Effect --- */
-
-#topbar-wrapper {
-  // 设置一个半透明的背景色，这是玻璃质感的基础
-  background: rgba(15, 18, 22, 0.7) !important; // 70% 透明度的深色背景
-
-  // 添加磨砂玻璃效果的关键！
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-
-  // 添加一条非常细微的、发光的底部分隔线，增加精致感
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-// 确保 topbar 本身是完全透明的，只让它的“包装盒”有背景
-#topbar {
-  background: transparent !important;
-}
-
-
-
-  /* 搜索：透明胶囊；hover 时轻微霓虹描边与辉光（不改变布局） */
-  #search {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 999px !important;
-    padding: 2px 10px !important;
-    transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
-  }
-
-  #search:hover {
-    border-color: rgba(34, 211, 238, 0.35) !important;
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.08);
-    background: rgba(255, 255, 255, 0.05) !important;
-
-  }
-
-  #search-input.form-control {
-    background: transparent !important;
-    border: none !important;
-    color: #eef1f4 !important;
-    box-shadow: none !important;
-  }
-
-  #search-input::placeholder {
-    color: #a3acb6 !important;
-  }
-
-  #search-cancel {
-    color: #c2c8cf !important;
-  }
-
-  // 这段加在 [data-mode="dark"] 的大括号外面，或者里面都可以
-  .anchor-btn:hover {
-    color: var(--accent) !important; // # 悬停时使用主强调色 (霓虹粉)
-  }
-
-
-  /* --- Custom Trending Tags Style --- */
-
-  .post-tag {
-    // 默认状态：使用我们定义的深粉色作为边框
-    border-color: var(--accent-700) !important;
-    // 默认文字颜色可以稍微亮一点
-    color: #dbeafe !important;
-    transition: all 0.2s ease-out; // 让所有变化都带上平滑的过渡动画
-  }
-
-  .post-tag:hover {
-    // 悬停状态：
-    color: #1e293b !important; // 文字变成深色以保证对比度
-    background-color: var(--accent) !important; // 背景填充为我们的主强调色（霓虹粉）
-    border-color: var(--accent) !important; // 边框也变成霓虹粉
-    
-    // 关键：添加一个与强调色同色的辉光效果！
-    box-shadow: 0 0 12px 0px var(--accent) !important;
-  }
-
-
-  .post-preview a {
-    // 默认状态：去掉下划线
-    text-decoration: none !important;
-  }
-
-  .post-preview a:hover {
-    // 悬停状态：
-    color: var(--link-hover-color) !important; // 文字颜色变为我们定义的悬停色（霓虹蓝/青）
-    background-color: rgba(255, 255, 255, 0.05) !important; // 背景浮现一层淡淡的高亮
-    border-radius: 5px; // 加上一点圆角
-    
-    // 关键：去掉虚线下划线
-    text-decoration: none !important;
-    border-bottom: none !important; 
-  }
-
-
-
-    /* --- Custom Post Card Hover Effect: Darken --- */
-
-  // 首先，为文章卡片的默认状态添加一个平滑的过渡动画
-  .post-preview {
-    transition: filter 0.25s ease-out;
-  }
-
-  // 然后，定义鼠标悬停时的样式
-  .post-preview:hover {
-    // 使用 brightness 滤镜，将元素的亮度降低到80%
-    filter: brightness(0.8);
-  }
-
+  // -- 左侧边栏 (Sidebar) --
   #sidebar {
-  // 设置一个半透明的背景，这是玻璃质感的基础
-  background: rgba(25, 27, 32, 0.75) !important; // 75% 透明度的深色背景
-
-  // 添加磨砂玻璃效果的关键！
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-
-  // 可以加上一个非常细微的、发光的边框
-  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(25, 27, 32, 0.75) !important;
+    backdrop-filter: blur(12px) saturate(120%);
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
-
   // 头像的外层容器
   #avatar {
     // 尺寸设置保持不变
     width: 8.75rem !important;
     height: 8.75rem !important;
     border-radius: 16px !important; // 可以稍微加大一点圆角，让外框更柔和
-
     // 关键：直接设置霓虹粉色边框和辉光
     border: 1px solid var(--accent-color) !important; // 直接使用霓虹粉作为边框颜色
     box-shadow: 0 0 12px 0px var(--accent-color) !important; // 默认状态就带有辉光
@@ -476,7 +85,6 @@
     // 去掉放大动画，但保留其他过渡效果
     transition: box-shadow 0.3s ease-out, border-color 0.3s ease-out;
   }
-
   // 桌面端的尺寸调整
   @media all and (min-width: 576px) {
     #avatar {
@@ -484,7 +92,6 @@
       height: 10rem !important;
     }
   }
-
   // 头像的图片本身
   #avatar img {
     width: 100% !important;
@@ -492,14 +99,12 @@
     object-fit: cover;
     border-radius: 16px !important; // 让图片的圆角和外框完全一致
   }
-
   // --- 交互效果 ---
   // 鼠标悬停在头像上时，可以让辉光变得更强一点
   #avatar:hover {
     border-color: #ffffff; // 悬停时边框可以变成白色，辉光更明显
     box-shadow: 0 0 24px 0px var(--accent-color); // 辉光范围变大
   }
-
   // 侧边栏的导航链接（兼容旧的 #nav-list 与当前 ul.nav 结构）
   #nav-list .nav-item .nav-link,
   #sidebar ul.nav .nav-item .nav-link,
@@ -508,65 +113,95 @@
     border-radius: 8px; // 加上圆角
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
   }
-
-  // 导航链接的悬停效果
-  #nav-list .nav-item .nav-link:hover,
-  #sidebar ul.nav .nav-item .nav-link:hover,
-  #sidebar .nav .nav-item .nav-link:hover {
-    // 使用霓虹粉做高亮
-    background-color: rgba(244, 114, 182, 0.25); // var(--accent) 的近似透明背景
-    color: var(--accent) !important;
+  #nav-list .nav-item.active .nav-link {
+    background-color: var(--accent-color) !important;
+    color: #1a1a1a !important;
+    font-weight: bold;
+    box-shadow: 0 0 12px 0px var(--accent-color) !important;
+    border-radius: 8px;
   }
-
-  // 底部社交图标的悬停辉光（兼容旧的 #social-list 与当前 .sidebar-bottom 结构）
   #social-list a:hover,
   #sidebar .sidebar-bottom a:hover {
-    color: var(--accent) !important; // 霓虹粉
-    // 用 drop-shadow 来给图标本身加辉光，比 text-shadow 效果更好
-    filter: drop-shadow(0 0 4px var(--accent));
+    color: var(--accent-color) !important;
+    filter: drop-shadow(0 0 4px var(--accent-color));
   }
-
-  // 文章内图片的圆角（命中所有常见包裹方式）
-  .post-content img,
-  .content img,
-  .img-link img,
-  .preview-img img,
-  img.post-image {
+  // -- 顶部 (Topbar) 与搜索栏 --
+  #topbar-wrapper {
+    background: rgba(15, 18, 22, 0.7) !important;
+    backdrop-filter: blur(10px) saturate(120%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  #topbar {
+    background: transparent !important;
+  }
+  #search:hover {
+    border-color: rgba(34, 211, 238, 0.35) !important;
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.08);
+  }
+  // -- 右侧边栏 (TOC & Tags) --
+  #toc {
     border-radius: 12px !important;
-    border: 1px solid #2a2a2a !important; // 使用一个比border-color更亮的颜色
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(10px) saturate(120%);
+    overflow: hidden;
+  }
+  #toc .toc-link::before {
+    background-color: #4a4a4a !important;
+    width: 2px !important;
+  }
+  #toc .is-active-link::before {
+    background-color: var(--accent-color) !important;
+  }
+  #toc .toc-link:hover,
+  #toc .is-active-link {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+  }
+  .post-tag.btn:hover {
+    box-shadow: 0 0 12px 0px var(--accent-color) !important;
+  }
+  #sidebar .post-preview a:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 5px;
+  }
+  // -- 内容区域 --
+  .post-preview:hover {
+    filter: brightness(0.8);
+  }
+  .post-content img {
+    border-radius: 12px !important;
+    border: 1px solid #2a2a2a !important;
     background: #0b0d11;
   }
-
-  
-
-/* --- Custom Blockquote & Attribution Style (Final Version) --- */
-  // 1. 彻底“掏空”blockquote容器，让它变成一个透明的、没有边距的“幽灵”容器
-  blockquote {
+  /* 仅对“含 footer 的 blockquote”应用定制样式，避免影响 .prompt-* 等提示框 */
+  blockquote:has(footer) {
     border: none !important;
     padding: 0 !important;
-    margin-bottom: 1rem !important; // 只保留和下方元素的间距
-    background: transparent !important; // 确保背景完全透明
+    margin-bottom: 1rem !important;
+    background: transparent !important;
   }
-
-  // 2. 把所有视觉样式，都精确地赋予引用正文的 <p> 标签
-  blockquote p {
+  /* 引文主体，顶部圆角，底部与 footer 平齐 */
+  blockquote:has(footer) p {
     background: rgba(255, 255, 255, 0.02);
     border-left: 3px solid var(--accent-color) !important;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
     padding: 1.25rem 1.5rem;
-    margin: 0 !important; // 确保它自己没有多余的边距
+    margin: 0 !important;
     font-style: italic;
     color: var(--text-color) !important;
   }
-
-  // 3. 署名 <footer> 的样式，保持不变，但要确保它在“幽灵”容器里
-  blockquote footer {
+  /* 引文署名：透明背景，仅保留顶部细分割线 */
+  blockquote:has(footer) footer {
     text-align: right;
     font-size: 0.85em;
     color: var(--muted-color);
     font-style: normal;
-    margin-top: 1rem;
-    padding-right: 0.5rem; // 可以微调一下右边距，让它更好看
-    opacity: 0.8;
+    margin: 0; /* 与主体无额外间距，由分割线视觉分隔 */
+    padding: 0.75rem 0.75rem 0.25rem 0;
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    opacity: 0.85;
   }
 }
+

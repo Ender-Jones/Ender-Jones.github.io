@@ -4,7 +4,7 @@ description: A pragmatic look at prompt engineering, with practical techniques a
 date: 2025-09-01 22:49:00 +0900
 categories: [study]
 tags: [AI, Prompt Engineering, LLM, study, claude, gpt, gemini, ai models]
-pin: true
+pin: false
 math: false
 mermaid: false
 image:

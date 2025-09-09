@@ -374,5 +374,48 @@ footer p:last-child {
   #social-list a {
     text-shadow: 0 0 8px var(--sidebar-glow-color) !important;
   }
+
+  /* --- 可折叠翻译按钮 --- */
+.translation-button {
+  /* 基础样式 */
+  font-size: 0.75em;
+  cursor: pointer;
+  color: #ccc;
+  list-style: none; /* 隐藏默认箭头 */
+  border: 1px solid #555;
+  padding: 0.5em 1em;
+  border-radius: 999px; /* 胶囊形状 */
+  display: inline-block;
+  background-color: transparent; /* 确保默认背景透明 */
+
+  /* 过渡动画：让所有变化都变得平滑 */
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* --- 悬停效果：霓虹蓝辉光 (Tag同款) --- */
+.translation-button:hover {
+  background-color: var(--accent-hover-color) !important; /* 使用你的霓虹蓝变量 */
+  color: var(--button-hover-text-color) !important;      /* 使用你的悬停文字颜色变量 */
+  border-color: var(--accent-hover-color) !important;   /* 边框颜色与背景统一 */
+  box-shadow: 0 0 12px 0px var(--accent-hover-color) !important; /* 添加与Tag完全相同的辉光 */
+}
+
+/* --- 图标旋转动画 --- */
+details[open] .translation-button .icon {
+  transform: rotate(90deg);
+}
+
+.translation-button .icon {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+  margin-right: 0.5em;
+}
+
+/* --- 序言诗歌引用块：区块内缩 --- */
+blockquote:has(footer) {
+  max-width: 80%; /* 限制最大宽度为父容器的80% */
+  margin-left: auto;
+  margin-right: auto;
+}
 }
 

@@ -11,6 +11,12 @@ image:
   path: /assets/img/regression/title.png
   alt: Abstract black and white architectural curves of a bridge, symbolizing the structure of regression model evaluation metrics. 
 ---
+
+> <p><em>— Il n’ya a qu’une loi en sentiment. C’est de faire le bonheur de ce qu’on aime</em><br>
+> <em>— There is only one law in emotion: to bring happiness to those we love</em></p>
+>
+> <footer>— Stendhal, diary entry dated June 19, 1805</footer>
+
 ## Introduction: The Essence of Regression Models
 
 When we talk about prediction models, we're typically referring to one of two main types:

@@ -12,6 +12,12 @@ image:
   alt: ChatGPT Plus
 ---
 
+> <p><em>— Was ist schlecht? - Alles, was aus der Schwäche stammt.</em><br>
+> <em>— What is evil? – Everything that comes from weakness.</em></p>
+>
+> <footer>— Friedrich Nietzsche</footer>
+
+
 # My Stance on Prompt Engineering
 
 To be frank, I believe deep specialization in prompt engineering yields diminishing returns for the average user. While it's a fascinating field, mastering a few powerful, general principles is far more practical than getting lost in the weeds. This post is a summary of my journey: what I've learned, what I already knew, and my personal take on the major AI models I work with daily.

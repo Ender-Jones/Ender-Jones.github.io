@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /norobots/
+Sitemap: https://ender-jones-github-io.pages.dev/sitemap.xml

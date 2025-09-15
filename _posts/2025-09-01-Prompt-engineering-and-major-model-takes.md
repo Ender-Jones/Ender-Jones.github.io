@@ -9,7 +9,7 @@ math: false
 mermaid: false
 image:
   path: /assets/img/AiTake/chatgpt-plus.jpg
-  alt: ChatGPT Plus
+  alt: Title image when GPT plus was released
 ---
 
 > <p><em>— Was ist schlecht? - Alles, was aus der Schwäche stammt.</em><br>
@@ -98,13 +98,13 @@ It's clear that not all models are created equal. Different models excel at diff
 
 ### Summary
 
-| Feature                 | Claude                                           | GPT                                                      | Gemini                                           |
-| ----------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------ |
-| **Primary Strength**    | Code Generation                                  | Brainstorming & Ideation                                 | Information Synthesis<br>& Brainstorming         |
-| **Coding Ability**      | Excellent<br>(can over-engineer)                 | Capable All-rounder                                      | Reliable<br>(sticks to prompt)                   |
-| **Hallucination**       | Very Low                                         | High<br>(without self-awareness)                         | High<br>(but sometimes obvious)                  |
-| **Prompt Adherence**    | Low<br>(often adds<br>unrequested features)      | Medium<br>(can add<br>extra complexity)                  | High<br>(sticks closely<br>to requirements)      |
-| **Search & Vetting**    | Normal                                             | Normal        | Strong<br>(excels at<br>synthesizing information) |
+| Feature              | Claude                                      | GPT                                     | Gemini                                            |
+| -------------------- | ------------------------------------------- | --------------------------------------- | ------------------------------------------------- |
+| **Primary Strength** | Code Generation                             | Brainstorming & Ideation                | Information Synthesis<br>& Brainstorming          |
+| **Coding Ability**   | Excellent<br>(can over-engineer)            | Capable All-rounder                     | Reliable<br>(sticks to prompt)                    |
+| **Hallucination**    | Very Low                                    | High<br>(without self-awareness)        | High<br>(but sometimes obvious)                   |
+| **Prompt Adherence** | Low<br>(often adds<br>unrequested features) | Medium<br>(can add<br>extra complexity) | High<br>(sticks closely<br>to requirements)       |
+| **Search & Vetting** | Normal                                      | Normal                                  | Strong<br>(excels at<br>synthesizing information) |
 
 
 ### 💻 Claude: The Coder

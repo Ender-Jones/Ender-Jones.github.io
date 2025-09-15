@@ -1,7 +1,8 @@
 ---
---- 
+---
+
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
-@import "main"; // 首先，加载主题默认的所有样式
+@import 'main'; // 首先，加载主题默认的所有样式
 
 /* ==========================================================================
    My Custom Styles - The Great Fusion Version
@@ -9,43 +10,51 @@
 
 // --- 1. 定义所有全局变量 ---
 // 我们把所有自定义的“颜料桶”都集中放在这唯一一个 :root 里
-:root[data-mode="dark"] {
-  
+:root[data-mode='dark'] {
   // -- 字体 (使用你喜欢的新定义) --
   --font-family-base: 'Noto Sans', sans-serif !important;
   --font-family-heading: 'Fira Code', monospace !important;
   --font-family-monospace: 'Fira Code', monospace !important;
 
   // -- 强调色 --
-  --accent-color: #f472b6;       // 霓虹粉
-  --accent-hover-color: #38bdf8;   // 霓虹蓝
-  --accent-border-color: #db2777;  // 深粉色
+  --accent-color: #f472b6; // 霓虹粉
+  --accent-hover-color: #38bdf8; // 霓虹蓝
+  --accent-border-color: #db2777; // 深粉色
   --accent-color-glow: rgba(244, 114, 182, 0.07); // 新增：霓虹粉辉光
   --accent-color-border-inset: rgba(244, 114, 182, 0.12); // 新增：霓虹粉内边框
-  --sidebar-highlight: radial-gradient(circle at 100% 65%, rgba(56,189,248, 0.035) -10%, transparent 25%); // 新增：头像区域高光
+  --sidebar-highlight: radial-gradient(
+    circle at 100% 65%,
+    rgba(56, 189, 248, 0.035) -10%,
+    transparent 25%
+  ); // 新增：头像区域高光
   --separator-color: rgba(255, 255, 255, 0.08); // 新增：分割线颜色
   --accent-color-hover-bg: rgba(244, 114, 182, 0.1); // 新增：链接悬停背景色
-  --sidebar-glow-color: rgba(244, 114, 182, 0.14); // 新增：侧栏默认微光（更可见）
+  --sidebar-glow-color: rgba(
+    244,
+    114,
+    182,
+    0.14
+  ); // 新增：侧栏默认微光（更可见）
   --avatar-glow: rgba(244, 114, 182, 0.08); // 新增：头像弱发光
   --avatar-glow-strong: rgba(244, 114, 182, 0.16); // 新增：头像强发光
   /* 侧栏各项专属色 */
-  --nav-home: #f472b6;       /* 霓虹粉 */
+  --nav-home: #f472b6; /* 霓虹粉 */
   --nav-categories: #22d3ee; /* 霓虹青 */
-  --nav-tags: #a78bfa;       /* 霓虹紫 */
-  --nav-archives: #34d399;   /* 霓虹绿 */
-  --nav-about: #f59e0b;      /* 霓虹琥珀 */
-  
+  --nav-tags: #a78bfa; /* 霓虹紫 */
+  --nav-archives: #34d399; /* 霓虹绿 */
+  --nav-about: #f59e0b; /* 霓虹琥珀 */
+
   // -- 链接颜色 (覆盖主题默认值) --
   --link-color: #e9ecef;
   --link-hover-color: var(--accent-hover-color);
-  
+
   // -- 按钮/标签颜色 (覆盖主题默认值) --
   --button-text-color: #dbeafe;
   --button-border-color: var(--accent-border-color);
   --button-hover-bg: var(--accent-color);
   --button-hover-text-color: #1e293b;
   --button-hover-border-color: var(--accent-color);
-  
+
   // -- 基础背景与文字 --
   --body-bg: #070809;
   --main-bg: #0a0c0f;
@@ -60,6 +69,11 @@
   --seam-fade-width: 64px;
   --seam-fade-start: rgba(10, 12, 15, 0.6);
   --seam-fade-end: rgba(10, 12, 15, 0);
+
+  /* 网格背景参数 */
+  --grid-size: 20px; /* 网格间距 */
+  --grid-line-width: 1px; /* 网格线宽 */
+  --grid-line-color: rgba(148, 163, 184, 0.035); /* 网格线颜色（灰） */
 }
 
 /* 隐藏主题归属标语（页脚最后一个段落） */
@@ -69,17 +83,47 @@ footer p:last-child {
 
 // --- 2. 应用所有具体的样式规则 ---
 // 所有需要用选择器指定的样式，都放在这个唯一的代码块里
-[data-mode="dark"] {
-
+[data-mode='dark'] {
   // -- 背景特效 --
   #main-wrapper {
     background-color: var(--main-bg) !important;
-    background-image:
-      linear-gradient(to right, var(--seam-fade-start), var(--seam-fade-end)),
-      radial-gradient(600px 420px at 8% 10%, rgba(34, 211, 238, 0.08), transparent 60%),
-      radial-gradient(600px 420px at 92% 22%, rgba(168, 85, 247, 0.07), transparent 60%);
-    background-repeat: no-repeat;
-    background-size: var(--seam-fade-width) 100%, 100% 100%, 100% 100%;
+    background-image: linear-gradient(
+        to right,
+        var(--seam-fade-start),
+        var(--seam-fade-end)
+      ),
+      /* 网格：使用 background-size 平铺，规避子像素累积导致的疏密感 */
+        /* 水平线 */
+        linear-gradient(
+          to bottom,
+          var(--grid-line-color) 0,
+          var(--grid-line-color) var(--grid-line-width),
+          transparent var(--grid-line-width),
+          transparent 100%
+        ),
+      /* 垂直线 */
+        linear-gradient(
+          to right,
+          var(--grid-line-color) 0,
+          var(--grid-line-color) var(--grid-line-width),
+          transparent var(--grid-line-width),
+          transparent 100%
+        ),
+      radial-gradient(
+        600px 420px at 8% 10%,
+        rgba(34, 211, 238, 0.13),
+        transparent 60%
+      ),
+      radial-gradient(
+        600px 420px at 92% 22%,
+        rgba(168, 85, 247, 0.13),
+        transparent 60%
+      );
+    background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat;
+    background-size: var(--seam-fade-width) 100%,
+      var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size),
+      100% 100%, 100% 100%;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
   }
 
   // -- 左侧边栏 (Sidebar) --
@@ -89,9 +133,8 @@ footer p:last-child {
     background-repeat: no-repeat !important;
     backdrop-filter: blur(12px) saturate(120%);
     border-right: none !important; /* 用下面的辉光效果代替原有的硬边框 */
-    box-shadow: 
-      inset -1px 0 0 0 var(--accent-color-border-inset), /* 在右侧添加1px内描边 */
-      3px 0 18px -4px var(--accent-color-glow); /* 在右侧添加外发光 */
+    box-shadow: inset -1px 0 0 0 var(--accent-color-border-inset),
+      /* 在右侧添加1px内描边 */ 3px 0 18px -4px var(--accent-color-glow); /* 在右侧添加外发光 */
   }
 
   /* --- 侧边栏内部元素分隔 --- */
@@ -114,10 +157,10 @@ footer p:last-child {
     animation: none !important; // 关闭呼吸动效
     position: relative;
     overflow: visible;
-    
+
     // 去掉内边距，让图片填满边框
     padding: 0 !important;
-    
+
     // 去掉放大动画，但保留其他过渡效果
     transition: box-shadow 0.1s ease-out, border-color 0.1s ease-out;
   }
@@ -157,8 +200,11 @@ footer p:last-child {
   #avatar::before {
     top: -6px; /* 移到边框外侧 */
     left: -6px;
-    background-image:
-      linear-gradient(90deg, var(--accent-color) 0, var(--accent-color) 100%),
+    background-image: linear-gradient(
+        90deg,
+        var(--accent-color) 0,
+        var(--accent-color) 100%
+      ),
       linear-gradient(180deg, var(--accent-color) 0, var(--accent-color) 100%);
     background-size: 22px 2px, 2px 22px;
     background-position: 0 0, 0 0;
@@ -169,21 +215,34 @@ footer p:last-child {
   #avatar::after {
     right: -6px; /* 移到边框外侧 */
     bottom: -6px;
-    background-image:
-      linear-gradient(90deg, var(--accent-hover-color) 0, var(--accent-hover-color) 100%),
-      linear-gradient(180deg, var(--accent-hover-color) 0, var(--accent-hover-color) 100%);
+    background-image: linear-gradient(
+        90deg,
+        var(--accent-hover-color) 0,
+        var(--accent-hover-color) 100%
+      ),
+      linear-gradient(
+        180deg,
+        var(--accent-hover-color) 0,
+        var(--accent-hover-color) 100%
+      );
     background-size: 22px 2px, 2px 22px;
     background-position: right bottom, right bottom;
     background-repeat: no-repeat;
   }
 
   #avatar::before,
-  #avatar::after { opacity: 0.45; }
+  #avatar::after {
+    opacity: 0.45;
+  }
   #avatar:hover::before,
-  #avatar:hover::after { opacity: 0.85; }
+  #avatar:hover::after {
+    opacity: 0.85;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    #avatar { animation: none !important; }
+    #avatar {
+      animation: none !important;
+    }
   }
 
   /* --- 导航链接样式重构 --- */
@@ -196,7 +255,7 @@ footer p:last-child {
     position: relative; /* 为 ::before 伪元素定位 */
     background-color: transparent !important; /* 确保默认无背景色 */
   }
-  
+
   /* 悬停效果 (非激活状态) */
   #nav-list .nav-item:not(.active) .nav-link:hover,
   #sidebar .nav .nav-item:not(.active) .nav-link:hover {
@@ -236,20 +295,45 @@ footer p:last-child {
 
   /* --- 侧栏各项独立配色：仅作用图标与左侧指示线 --- */
   /* Home */
-  #sidebar .nav .nav-item .nav-link[href="/"]::before { background-color: var(--nav-home) !important; }
-  #sidebar .nav .nav-item .nav-link[href="/"] > i { color: var(--nav-home) !important; opacity: 0.9; }
+  #sidebar .nav .nav-item .nav-link[href='/']::before {
+    background-color: var(--nav-home) !important;
+  }
+  #sidebar .nav .nav-item .nav-link[href='/'] > i {
+    color: var(--nav-home) !important;
+    opacity: 0.9;
+  }
   /* Categories */
-  #sidebar .nav .nav-item .nav-link[href="/categories/"]::before { background-color: var(--nav-categories) !important; }
-  #sidebar .nav .nav-item .nav-link[href="/categories/"] > i { color: var(--nav-categories) !important; opacity: 0.9; }
+  #sidebar .nav .nav-item .nav-link[href='/categories/']::before {
+    background-color: var(--nav-categories) !important;
+  }
+  #sidebar .nav .nav-item .nav-link[href='/categories/'] > i {
+    color: var(--nav-categories) !important;
+    opacity: 0.9;
+  }
   /* Tags */
-  #sidebar .nav .nav-item .nav-link[href="/tags/"]::before { background-color: var(--nav-tags) !important; }
-  #sidebar .nav .nav-item .nav-link[href="/tags/"] > i { color: var(--nav-tags) !important; opacity: 0.9; }
+  #sidebar .nav .nav-item .nav-link[href='/tags/']::before {
+    background-color: var(--nav-tags) !important;
+  }
+  #sidebar .nav .nav-item .nav-link[href='/tags/'] > i {
+    color: var(--nav-tags) !important;
+    opacity: 0.9;
+  }
   /* Archives */
-  #sidebar .nav .nav-item .nav-link[href="/archives/"]::before { background-color: var(--nav-archives) !important; }
-  #sidebar .nav .nav-item .nav-link[href="/archives/"] > i { color: var(--nav-archives) !important; opacity: 0.9; }
+  #sidebar .nav .nav-item .nav-link[href='/archives/']::before {
+    background-color: var(--nav-archives) !important;
+  }
+  #sidebar .nav .nav-item .nav-link[href='/archives/'] > i {
+    color: var(--nav-archives) !important;
+    opacity: 0.9;
+  }
   /* About */
-  #sidebar .nav .nav-item .nav-link[href="/about/"]::before { background-color: var(--nav-about) !important; }
-  #sidebar .nav .nav-item .nav-link[href="/about/"] > i { color: var(--nav-about) !important; opacity: 0.9; }
+  #sidebar .nav .nav-item .nav-link[href='/about/']::before {
+    background-color: var(--nav-about) !important;
+  }
+  #sidebar .nav .nav-item .nav-link[href='/about/'] > i {
+    color: var(--nav-about) !important;
+    opacity: 0.9;
+  }
 
   /* 保持原有的激活状态样式 */
   #nav-list .nav-item.active .nav-link {
@@ -271,9 +355,8 @@ footer p:last-child {
     background: rgba(15, 18, 22, 0.7) !important;
     backdrop-filter: blur(10px) saturate(120%);
     border-bottom: none !important; /* 移除原生底边框 */
-    box-shadow: 
-      inset 0 -1px 0 0 var(--accent-color-border-inset), /* 添加1px内描边 */
-      0 3px 18px -4px var(--accent-color-glow); /* 添加外发光 */
+    box-shadow: inset 0 -1px 0 0 var(--accent-color-border-inset),
+      /* 添加1px内描边 */ 0 3px 18px -4px var(--accent-color-glow); /* 添加外发光 */
   }
   #topbar {
     background: transparent !important;
@@ -376,46 +459,50 @@ footer p:last-child {
   }
 
   /* --- 可折叠翻译按钮 --- */
-.translation-button {
-  /* 基础样式 */
-  font-size: 0.75em;
-  cursor: pointer;
-  color: #ccc;
-  list-style: none; /* 隐藏默认箭头 */
-  border: 1px solid #555;
-  padding: 0.5em 1em;
-  border-radius: 999px; /* 胶囊形状 */
-  display: inline-block;
-  background-color: transparent; /* 确保默认背景透明 */
+  .translation-button {
+    /* 基础样式 */
+    font-size: 0.75em;
+    cursor: pointer;
+    color: #ccc;
+    list-style: none; /* 隐藏默认箭头 */
+    border: 1px solid #555;
+    padding: 0.5em 1em;
+    border-radius: 999px; /* 胶囊形状 */
+    display: inline-block;
+    background-color: transparent; /* 确保默认背景透明 */
 
-  /* 过渡动画：让所有变化都变得平滑 */
-  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
+    /* 过渡动画：让所有变化都变得平滑 */
+    transition: background-color 0.25s ease, color 0.25s ease,
+      box-shadow 0.25s ease, border-color 0.25s ease;
+  }
 
-/* --- 悬停效果：霓虹蓝辉光 (Tag同款) --- */
-.translation-button:hover {
-  background-color: var(--accent-hover-color) !important; /* 使用你的霓虹蓝变量 */
-  color: var(--button-hover-text-color) !important;      /* 使用你的悬停文字颜色变量 */
-  border-color: var(--accent-hover-color) !important;   /* 边框颜色与背景统一 */
-  box-shadow: 0 0 12px 0px var(--accent-hover-color) !important; /* 添加与Tag完全相同的辉光 */
-}
+  /* --- 悬停效果：霓虹蓝辉光 (Tag同款) --- */
+  .translation-button:hover {
+    background-color: var(
+      --accent-hover-color
+    ) !important; /* 使用你的霓虹蓝变量 */
+    color: var(
+      --button-hover-text-color
+    ) !important; /* 使用你的悬停文字颜色变量 */
+    border-color: var(--accent-hover-color) !important; /* 边框颜色与背景统一 */
+    box-shadow: 0 0 12px 0px var(--accent-hover-color) !important; /* 添加与Tag完全相同的辉光 */
+  }
 
-/* --- 图标旋转动画 --- */
-details[open] .translation-button .icon {
-  transform: rotate(90deg);
-}
+  /* --- 图标旋转动画 --- */
+  details[open] .translation-button .icon {
+    transform: rotate(90deg);
+  }
 
-.translation-button .icon {
-  display: inline-block;
-  transition: transform 0.2s ease-in-out;
-  margin-right: 0.5em;
-}
+  .translation-button .icon {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+    margin-right: 0.5em;
+  }
 
-/* --- 序言诗歌引用块：区块内缩 --- */
-blockquote:has(footer) {
-  max-width: 80%; /* 限制最大宽度为父容器的80% */
-  margin-left: auto;
-  margin-right: auto;
+  /* --- 序言诗歌引用块：区块内缩 --- */
+  blockquote:has(footer) {
+    max-width: 80%; /* 限制最大宽度为父容器的80% */
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
-}
-

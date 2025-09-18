@@ -112,12 +112,12 @@ footer p:last-child {
       radial-gradient(
         600px 420px at 8% 10%,
         rgba(34, 211, 238, 0.13),
-        transparent 60%
+        transparent 55%
       ),
       radial-gradient(
         600px 420px at 92% 22%,
         rgba(168, 85, 247, 0.13),
-        transparent 60%
+        transparent 55%
       );
     background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat;
     background-size: var(--seam-fade-width) 100%,
@@ -504,5 +504,70 @@ footer p:last-child {
     max-width: 80%; /* 限制最大宽度为父容器的80% */
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* ==========================================================================
+   按分辨率整体缩放（仅桌面端）
+   说明：
+   - 默认不缩放 (--ui-scale: 1)
+   - 桌面端使用 zoom 获得“整体变大/变小”的效果
+   - Safari 等不支持 zoom 的浏览器使用 transform 回退（作用在主要容器上）
+   - 移动端保持主题原生逻辑，不做缩放
+   ========================================================================== */
+
+:root {
+  --ui-scale: 1;
+}
+
+/* 可按需要微调这些断点和缩放比例 */
+@media (min-width: 1200px) and (max-width: 1439.98px) {
+  :root {
+    --ui-scale: 1.08;
+  }
+}
+@media (min-width: 1440px) and (max-width: 1679.98px) {
+  :root {
+    --ui-scale: 1.12;
+  }
+}
+@media (min-width: 1680px) and (max-width: 1919.98px) {
+  :root {
+    --ui-scale: 1.16;
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    --ui-scale: 1.2;
+  }
+}
+
+/* 仅桌面端启用缩放 */
+@media (min-width: 1025px) {
+  body {
+    /* 首选：整体缩放（大多数 Chromium/Edge/Firefox 均支持） */
+    zoom: var(--ui-scale);
+  }
+
+  /* 回退方案：不支持 zoom 的浏览器（如 Safari） */
+  @supports not (zoom: 1) {
+    body {
+      zoom: 1; /* 复位，避免被部分兼容实现影响 */
+    }
+    /* 对主容器进行等比缩放并做宽度补偿，使可视宽度与视口对齐 */
+    #main-wrapper {
+      transform: scale(var(--ui-scale));
+      transform-origin: top center;
+      width: calc(100% / var(--ui-scale));
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* 顶部栏与侧栏常为兄弟节点，回退时同样跟随缩放 */
+    #topbar-wrapper,
+    #sidebar {
+      transform: scale(var(--ui-scale));
+      transform-origin: top center;
+      width: calc(100% / var(--ui-scale));
+    }
   }
 }

@@ -1,0 +1,129 @@
+---
+layout: page
+title: Work Log Card Lab
+permalink: /worklog-card-lab/
+sitemap: false
+---
+
+{% assign worklog_posts = site.worklogs | sort: 'date' | reverse %}
+{% assign latest_worklog = worklog_posts | first %}
+
+<div class="worklog-lab">
+  <p class="worklog-lab-note">Four homepage entry directions for the Work Log archive.</p>
+
+  <section class="worklog-lab-grid">
+    <article class="worklog-lab-card worklog-lab-linear">
+      <div class="worklog-lab-visual" aria-hidden="true">
+        <svg viewBox="0 0 560 220" role="img">
+          <rect x="0" y="0" width="560" height="220" rx="14" />
+          <g class="worklog-rays">
+            <line x1="280" y1="110" x2="64" y2="36" />
+            <line x1="280" y1="110" x2="122" y2="28" />
+            <line x1="280" y1="110" x2="194" y2="24" />
+            <line x1="280" y1="110" x2="280" y2="22" />
+            <line x1="280" y1="110" x2="366" y2="24" />
+            <line x1="280" y1="110" x2="438" y2="28" />
+            <line x1="280" y1="110" x2="496" y2="36" />
+            <line x1="280" y1="110" x2="72" y2="184" />
+            <line x1="280" y1="110" x2="154" y2="194" />
+            <line x1="280" y1="110" x2="280" y2="202" />
+            <line x1="280" y1="110" x2="406" y2="194" />
+            <line x1="280" y1="110" x2="488" y2="184" />
+          </g>
+          <circle class="worklog-core" cx="280" cy="110" r="38" />
+          <g class="worklog-points">
+            <circle cx="64" cy="36" r="3" />
+            <circle cx="122" cy="28" r="3" />
+            <circle cx="194" cy="24" r="3" />
+            <circle cx="280" cy="22" r="3" />
+            <circle cx="366" cy="24" r="3" />
+            <circle cx="438" cy="28" r="3" />
+            <circle cx="496" cy="36" r="3" />
+            <circle cx="72" cy="184" r="3" />
+            <circle cx="154" cy="194" r="3" />
+            <circle cx="280" cy="202" r="3" />
+            <circle cx="406" cy="194" r="3" />
+            <circle cx="488" cy="184" r="3" />
+          </g>
+        </svg>
+      </div>
+      <div class="worklog-lab-body">
+        <span class="worklog-lab-option">Option A - Linear abstract card</span>
+        <h2>Work Archive</h2>
+        <p>Monthly notes, active research state, engineering decisions, and resume anchors.</p>
+        <div class="worklog-lab-meta">
+          <span>Latest {{ latest_worklog.date | date: "%b %-d, %Y" }}</span>
+          <span>{{ worklog_posts.size }} entry</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="worklog-lab-card worklog-lab-terminal">
+      <div class="worklog-lab-body">
+        <span class="worklog-lab-option">Option B - Terminal log</span>
+        <h2>Work Archive</h2>
+        <p>A low-noise terminal-like entry point for future-me operational notes.</p>
+        <div class="worklog-lab-meta">
+          <span>Latest {{ latest_worklog.date | date: "%b %-d, %Y" }}</span>
+          <span>Open archive</span>
+        </div>
+      </div>
+      <div class="worklog-terminal-window" aria-hidden="true">
+        <div class="worklog-terminal-bar">
+          <span></span><span></span><span></span>
+          <em>worklog.sh</em>
+        </div>
+        <pre><code>$ tail -f worklog/2026-04
+[research] split provenance verified
+[queue] stage1 rPPG running
+[next] restart clean protocol
+_</code></pre>
+      </div>
+    </article>
+
+    <article class="worklog-lab-card worklog-lab-vercel">
+      <div class="worklog-vercel-date">
+        <span>{{ latest_worklog.date | date: "%b" }}</span>
+        <strong>{{ latest_worklog.date | date: "%-d" }}</strong>
+      </div>
+      <div class="worklog-lab-body">
+        <span class="worklog-lab-option">Option C - Vercel release row</span>
+        <h2>Work Archive</h2>
+        <p>Append-only monthly notes for research, engineering, projects, and job preparation.</p>
+        <div class="worklog-lab-meta">
+          <span>Monthly archive</span>
+          <span>{{ worklog_posts.size }} entry</span>
+        </div>
+      </div>
+      <div class="worklog-vercel-arrow" aria-hidden="true">
+        <i class="fas fa-arrow-right fa-fw"></i>
+      </div>
+    </article>
+
+    <article class="worklog-lab-card worklog-lab-index">
+      <div class="worklog-index-panel" aria-hidden="true">
+        <div>
+          <span>Resume</span>
+          <strong>Here</strong>
+        </div>
+        <div>
+          <span>Next</span>
+          <strong>6</strong>
+        </div>
+        <div>
+          <span>Risk</span>
+          <strong>Stage2</strong>
+        </div>
+      </div>
+      <div class="worklog-lab-body">
+        <span class="worklog-lab-option">Option D - Compact index panel</span>
+        <h2>Work Archive</h2>
+        <p>A dashboard-like doorway that says this is an index, not a regular post.</p>
+        <div class="worklog-lab-meta">
+          <span>Latest {{ latest_worklog.date | date: "%Y-%m" }}</span>
+          <span>Worklog</span>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>

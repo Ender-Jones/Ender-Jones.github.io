@@ -1,0 +1,35 @@
+{% assign worklog_posts = site.worklogs | sort: 'date' | reverse %}
+{% assign latest_worklog = worklog_posts | first %}
+
+{% if worklog_posts.size > 0 %}
+  <article class="card-wrapper card worklog-home-card">
+    <a href="{{ '/about/' | relative_url }}" class="post-preview worklog-home-preview row g-0 flex-md-row-reverse">
+      <div class="col-md-12">
+        <div class="card-body d-flex flex-column">
+          <div class="worklog-home-topline">
+            <span class="worklog-home-kicker">Worklog / Monthly Notes</span>
+            <span class="worklog-home-open">
+              Open
+              <i class="fas fa-arrow-right fa-fw"></i>
+            </span>
+          </div>
+
+          <h1 class="card-title my-2 mt-md-0">Work Archive</h1>
+
+          <div class="card-text content mt-0 mb-3">
+            <p>Append-only notes for research, engineering, projects, and job prep.</p>
+          </div>
+
+          <div class="worklog-terminal-window worklog-home-terminal" aria-hidden="true">
+            <div class="worklog-terminal-bar">
+              <span></span><span></span><span></span>
+              <em>resume-here.log</em>
+            </div>
+            <pre><code>$ open work-archive
+latest={{ latest_worklog.date | date: "%Y-%m" }} · entries={{ worklog_posts.size }}</code></pre>
+          </div>
+        </div>
+      </div>
+    </a>
+  </article>
+{% endif %}

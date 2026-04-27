@@ -71,9 +71,9 @@
   --seam-fade-end: rgba(10, 12, 15, 0);
 
   /* 网格背景参数 */
-  --grid-size: 20px; /* 网格间距 */
+  --grid-size: 28px; /* 网格间距 */
   --grid-line-width: 1px; /* 网格线宽 */
-  --grid-line-color: rgba(148, 163, 184, 0.035); /* 网格线颜色（灰） */
+  --grid-line-color: rgba(148, 163, 184, 0.025); /* 网格线颜色（灰） */
 }
 
 /* 隐藏主题归属标语（页脚最后一个段落） */
@@ -401,9 +401,493 @@ footer p:last-child {
     border-radius: 5px;
   }
   // -- 内容区域 --
-  .post-preview:hover {
-    filter: brightness(0.8);
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.04);
+    background-clip: padding-box;
+    isolation: isolate;
+    transition: transform 0.18s ease-out, border-color 0.18s ease-out,
+      box-shadow 0.18s ease-out, background-color 0.18s ease-out;
   }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(56, 189, 248, 0.08) 48%,
+      rgba(244, 114, 182, 0.07) 52%,
+      transparent 58%,
+      transparent 100%
+    );
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: opacity 0.16s ease-out, transform 0.58s ease-out;
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover {
+    transform: translateY(-3px);
+    border-color: rgba(56, 189, 248, 0.22);
+    background-color: rgba(255, 255, 255, 0.018);
+    box-shadow: 0 14px 36px -30px rgba(56, 189, 248, 0.85),
+      0 10px 28px -26px rgba(244, 114, 182, 0.7);
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover::after {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview img {
+    transition: transform 0.22s ease-out, filter 0.22s ease-out;
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover img {
+    transform: scale(1.025);
+    filter: saturate(1.08) contrast(1.04) brightness(1.08);
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .card-title {
+    transition: color 0.18s ease-out, text-shadow 0.18s ease-out;
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover .card-title {
+    color: #ffffff !important;
+    text-shadow: 0 0 18px rgba(56, 189, 248, 0.16);
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-meta i,
+  #post-list .card-wrapper:not(.worklog-home-card) .post-meta em,
+  #post-list .card-wrapper:not(.worklog-home-card) .post-meta time {
+    transition: color 0.18s ease-out, text-shadow 0.18s ease-out;
+  }
+
+  #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover .post-meta i {
+    color: var(--accent-hover-color);
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.24);
+  }
+
+  .worklog-home-card {
+    position: relative;
+    overflow: visible;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .worklog-home-card::after {
+    content: '';
+    position: absolute;
+    right: 10%;
+    bottom: -0.7rem;
+    left: 10%;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(148, 163, 184, 0.11) 22%,
+      rgba(56, 189, 248, 0.26) 50%,
+      rgba(244, 114, 182, 0.14) 66%,
+      transparent
+    );
+    opacity: 0.72;
+  }
+
+  .worklog-home-card .worklog-home-preview {
+    position: relative;
+    z-index: 1;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .worklog-home-card .worklog-home-preview::before {
+    content: none !important;
+  }
+
+  .worklog-home-card .worklog-home-preview:hover {
+    filter: none;
+  }
+
+  .worklog-home-card .card-body {
+    padding-top: 1.2rem !important;
+    padding-bottom: 1.15rem !important;
+  }
+
+  .worklog-home-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .worklog-home-kicker,
+  .worklog-home-open {
+    color: rgba(148, 163, 184, 0.86);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .worklog-home-open {
+    color: var(--accent-hover-color);
+    opacity: 0.75;
+    transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+    white-space: nowrap;
+  }
+
+  .worklog-home-card:hover .worklog-home-open {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+
+  .worklog-home-card .card-text {
+    margin-bottom: 0.65rem !important;
+  }
+
+  #post-list .worklog-home-card .card-body .card-text.content p {
+    display: inline;
+    overflow: visible;
+    -webkit-box-orient: initial;
+    -webkit-line-clamp: unset;
+    color: rgba(166, 173, 182, 0.92);
+    background-image: linear-gradient(
+      90deg,
+      rgba(56, 189, 248, 0),
+      rgba(56, 189, 248, 0.42),
+      rgba(244, 114, 182, 0.32),
+      rgba(56, 189, 248, 0)
+    );
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 1px;
+    transition: color 0.18s ease-out, text-shadow 0.18s ease-out,
+      background-size 0.22s ease-out;
+  }
+
+  #post-list .worklog-home-card:hover .card-body .card-text.content p {
+    color: rgba(219, 234, 254, 0.9);
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.22);
+    background-size: 100% 1px;
+  }
+
+  .worklog-home-terminal {
+    position: relative;
+    overflow: hidden;
+    margin: 0 !important;
+    transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+  }
+
+  .worklog-home-terminal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(56, 189, 248, 0.1) 48%,
+      rgba(244, 114, 182, 0.08) 52%,
+      transparent 58%,
+      transparent 100%
+    );
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: opacity 0.18s ease-out, transform 0.55s ease-out;
+  }
+
+  .worklog-home-card:hover .worklog-home-terminal {
+    border-color: rgba(56, 189, 248, 0.34);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+      0 0 28px -20px rgba(56, 189, 248, 0.9);
+  }
+
+  .worklog-home-card:hover .worklog-home-terminal::after {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  .worklog-home-terminal pre {
+    font-size: 0.72rem !important;
+    line-height: 1.4 !important;
+    padding: 0.55rem 0.8rem !important;
+  }
+
+  .worklog-home-terminal .worklog-terminal-bar {
+    padding: 0.42rem 0.7rem;
+  }
+
+  @media all and (max-width: 576px) {
+    .worklog-home-open {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview::after,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview img,
+    #post-list .card-wrapper:not(.worklog-home-card) .card-title,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-meta i,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-meta em,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-meta time,
+    .worklog-home-card .card-text p,
+    .worklog-home-terminal,
+    .worklog-home-terminal::after {
+      transition: none;
+    }
+
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover,
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover img {
+      transform: none;
+    }
+
+    #post-list .card-wrapper:not(.worklog-home-card) .post-preview::after,
+    .worklog-home-terminal::after {
+      display: none;
+    }
+  }
+
+  .worklog-lab-note {
+    color: var(--muted-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .worklog-lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .worklog-lab-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 26rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .worklog-lab-card h2 {
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1.16;
+    margin: 0.75rem 0 0.85rem;
+  }
+
+  .worklog-lab-card p {
+    color: var(--muted-color);
+    font-size: 1.08rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .worklog-lab-body {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+  }
+
+  .worklog-lab-option {
+    color: rgba(245, 158, 11, 0.88);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .worklog-lab-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    color: rgba(166, 173, 182, 0.84);
+    margin-top: 2rem;
+  }
+
+  .worklog-lab-visual {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .worklog-lab-visual svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .worklog-lab-visual rect {
+    fill: rgba(255, 255, 255, 0.018);
+    stroke: rgba(255, 255, 255, 0.08);
+  }
+
+  .worklog-rays line {
+    stroke: rgba(255, 255, 255, 0.22);
+    stroke-width: 1;
+  }
+
+  .worklog-core {
+    fill: rgba(245, 158, 11, 0.24);
+    filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.45));
+  }
+
+  .worklog-points circle {
+    fill: rgba(255, 255, 255, 0.75);
+  }
+
+  .worklog-terminal-window {
+    margin: 1.5rem;
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 8px;
+    background: #050607;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  }
+
+  .worklog-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .worklog-terminal-bar span {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.8);
+  }
+
+  .worklog-terminal-bar span:nth-child(2) {
+    background: rgba(56, 189, 248, 0.72);
+  }
+
+  .worklog-terminal-bar span:nth-child(3) {
+    background: rgba(244, 114, 182, 0.72);
+  }
+
+  .worklog-terminal-bar em {
+    color: rgba(166, 173, 182, 0.72);
+    font-size: 0.78rem;
+    font-style: normal;
+    margin-left: auto;
+  }
+
+  .worklog-terminal-window pre {
+    color: rgba(219, 234, 254, 0.86);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    margin: 0;
+    padding: 1rem;
+    white-space: pre-wrap;
+  }
+
+  .worklog-lab-vercel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    min-height: 15rem;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .worklog-lab-vercel .worklog-lab-body {
+    padding: 0;
+  }
+
+  .worklog-vercel-date {
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .worklog-vercel-date span {
+    color: var(--muted-color);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+  }
+
+  .worklog-vercel-date strong {
+    color: #fff;
+    font-size: 1.8rem;
+  }
+
+  .worklog-vercel-arrow {
+    color: var(--accent-hover-color);
+    font-size: 1.25rem;
+  }
+
+  .worklog-lab-index {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 11, 0.06),
+      rgba(56, 189, 248, 0.035)
+    );
+  }
+
+  .worklog-index-panel {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 1.5rem 0;
+  }
+
+  .worklog-index-panel div {
+    min-height: 5.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.18);
+    padding: 0.9rem;
+  }
+
+  .worklog-index-panel span {
+    color: rgba(166, 173, 182, 0.72);
+    display: block;
+    font-size: 0.78rem;
+  }
+
+  .worklog-index-panel strong {
+    color: #fff;
+    display: block;
+    font-size: 1.15rem;
+    margin-top: 0.55rem;
+  }
+
+  @media all and (max-width: 992px) {
+    .worklog-lab-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media all and (max-width: 576px) {
+    .worklog-lab-card {
+      min-height: auto;
+    }
+
+    .worklog-lab-vercel {
+      grid-template-columns: 1fr;
+    }
+
+    .worklog-vercel-arrow {
+      display: none;
+    }
+  }
+
   .post-content img {
     border-radius: 12px !important;
     border: 1px solid #2a2a2a !important;

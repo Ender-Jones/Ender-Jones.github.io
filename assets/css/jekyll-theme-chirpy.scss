@@ -345,10 +345,60 @@ footer p:last-child {
   }
 
   /* 底部社交图标悬停效果 */
+  #sidebar .sidebar-bottom {
+    align-self: flex-start;
+    width: 10rem !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 2.5rem;
+    margin-right: 0;
+    justify-content: center !important;
+    gap: 0.24rem;
+  }
+
+  #sidebar .sidebar-bottom a,
+  #social-list a {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    transition: color 0.18s ease-out, background-color 0.18s ease-out,
+      transform 0.18s ease-out, filter 0.18s ease-out;
+  }
+
+  #sidebar .sidebar-bottom a > i,
+  #social-list a > i {
+    font-size: 1.06rem;
+    line-height: 1;
+    transition: transform 0.18s ease-out, text-shadow 0.18s ease-out;
+  }
+
+  #sidebar .sidebar-bottom a[aria-label='github'] > i {
+    color: rgba(245, 158, 11, 0.9);
+  }
+
+  #sidebar .sidebar-bottom a[aria-label='twitter'] > i {
+    color: rgba(56, 189, 248, 0.9);
+  }
+
+  #sidebar .sidebar-bottom a[aria-label='email'] > i {
+    color: rgba(244, 114, 182, 0.9);
+  }
+
   #social-list a:hover,
   #sidebar .sidebar-bottom a:hover {
     color: var(--accent-color) !important;
-    filter: drop-shadow(0 0 4px var(--accent-color));
+    background-color: rgba(244, 114, 182, 0.07);
+    filter: drop-shadow(0 0 5px rgba(244, 114, 182, 0.42));
+    transform: translateY(-2px);
+  }
+
+  #social-list a:hover > i,
+  #sidebar .sidebar-bottom a:hover > i {
+    color: var(--accent-color) !important;
+    transform: scale(1.08);
+    text-shadow: 0 0 12px rgba(244, 114, 182, 0.36) !important;
   }
   // -- 顶部 (Topbar) 与搜索栏 --
   #topbar-wrapper {
@@ -405,10 +455,12 @@ footer p:last-child {
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(148, 163, 184, 0.04);
+    background: rgba(20, 22, 26, 0.72) !important;
     background-clip: padding-box;
+    backdrop-filter: blur(2px) saturate(112%);
     isolation: isolate;
     transition: transform 0.18s ease-out, border-color 0.18s ease-out,
-      box-shadow 0.18s ease-out, background-color 0.18s ease-out;
+      box-shadow 0.18s ease-out, background 0.18s ease-out;
   }
 
   #post-list .card-wrapper:not(.worklog-home-card) .post-preview::after {
@@ -434,7 +486,7 @@ footer p:last-child {
   #post-list .card-wrapper:not(.worklog-home-card) .post-preview:hover {
     transform: translateY(-3px);
     border-color: rgba(56, 189, 248, 0.22);
-    background-color: rgba(255, 255, 255, 0.018);
+    background: rgba(24, 27, 32, 0.8) !important;
     box-shadow: 0 14px 36px -30px rgba(56, 189, 248, 0.85),
       0 10px 28px -26px rgba(244, 114, 182, 0.7);
   }
@@ -641,6 +693,8 @@ footer p:last-child {
     #post-list .card-wrapper:not(.worklog-home-card) .post-meta i,
     #post-list .card-wrapper:not(.worklog-home-card) .post-meta em,
     #post-list .card-wrapper:not(.worklog-home-card) .post-meta time,
+    #sidebar .sidebar-bottom a,
+    #sidebar .sidebar-bottom a > i,
     .worklog-home-card .card-text p,
     .worklog-home-terminal,
     .worklog-home-terminal::after {

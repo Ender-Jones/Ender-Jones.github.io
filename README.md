@@ -1,3 +1,9 @@
+# Docker
+docker compose up -d  # up without log -d==detached
+docker compose logs -f # see logs and can turn off without compose down -f==follow
+docker compose down # shutdown
+
+
 # Chirpy Starter
 
 [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;

@@ -1,0 +1,22 @@
+<script>
+  (function () {
+    var key = 'ender-home-intro-v3';
+    var root = document.documentElement;
+    var force = window.location.search.indexOf('intro=1') !== -1;
+
+    try {
+      if (!force && window.sessionStorage.getItem(key) === 'seen') {
+        root.classList.add('home-intro-seen');
+        return;
+      }
+    } catch (error) {
+      force = true;
+    }
+
+    root.classList.add('home-intro-pending');
+
+    window.__homeIntroGateTimer = window.setTimeout(function () {
+      root.classList.remove('home-intro-pending');
+    }, 3000);
+  })();
+</script>

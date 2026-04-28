@@ -57,6 +57,10 @@
     {{ site.title }}
   </title>
 
+  {% if page.layout == 'home' %}
+    {% include home-intro-gate.html %}
+  {% endif %}
+
   {% include_cached favicons.html %}
 
   <!-- Resource Hints -->

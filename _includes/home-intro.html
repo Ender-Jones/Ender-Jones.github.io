@@ -1,0 +1,183 @@
+<div id="home-intro" aria-hidden="true">
+  <div class="home-intro-cover home-intro-sidebar-cover">
+    <div class="home-intro-avatar"></div>
+    <span class="home-intro-line is-name"></span>
+    <span class="home-intro-line is-subtitle"></span>
+    <div class="home-intro-nav-lines">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="home-intro-social-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="home-intro-cover home-intro-topbar-cover">
+    <span class="home-intro-line is-breadcrumb"></span>
+    <span class="home-intro-search"></span>
+  </div>
+
+  <div class="home-intro-stage">
+    <div class="home-intro-wire home-intro-wire-worklog">
+      <div class="home-intro-topline">
+        <span></span>
+        <span></span>
+      </div>
+      <span class="home-intro-line is-title"></span>
+      <span class="home-intro-line is-summary"></span>
+      <div class="home-intro-terminal">
+        <div class="home-intro-terminal-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="home-intro-line"></span>
+        <span class="home-intro-line is-short"></span>
+      </div>
+    </div>
+
+    <div class="home-intro-wire home-intro-wire-post is-first">
+      <div class="home-intro-post-body">
+        <span class="home-intro-line is-title"></span>
+        <span class="home-intro-line"></span>
+        <span class="home-intro-line is-short"></span>
+        <span class="home-intro-meta"></span>
+      </div>
+      <div class="home-intro-media"></div>
+    </div>
+
+    <div class="home-intro-wire home-intro-wire-post is-second">
+      <div class="home-intro-post-body">
+        <span class="home-intro-line is-title"></span>
+        <span class="home-intro-line"></span>
+        <span class="home-intro-line is-short"></span>
+      </div>
+      <div class="home-intro-media"></div>
+    </div>
+  </div>
+
+  <div class="home-intro-cover home-intro-panel-cover">
+    <span class="home-intro-line is-panel-title"></span>
+    <span class="home-intro-line"></span>
+    <span class="home-intro-line is-short"></span>
+    <div class="home-intro-panel-card">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var key = 'ender-home-intro-v3';
+    var root = document.documentElement;
+    var force = window.location.search.indexOf('intro=1') !== -1;
+
+    try {
+      if (!force && window.sessionStorage.getItem(key) === 'seen') {
+        root.classList.add('home-intro-seen');
+        root.classList.remove('home-intro-pending');
+        return;
+      }
+    } catch (error) {
+      force = true;
+    }
+
+    function measureHomeIntro() {
+      var intro = document.getElementById('home-intro');
+      var postList = document.getElementById('post-list');
+      var cards = document.querySelectorAll('#post-list > .card-wrapper');
+
+      if (!intro || !postList || cards.length === 0) {
+        root.classList.remove('home-intro-pending');
+        return;
+      }
+
+      var uiScale = parseFloat(getComputedStyle(root).getPropertyValue('--ui-scale')) || 1;
+
+      function px(value) {
+        return value / uiScale + 'px';
+      }
+
+      function visible(rect) {
+        return rect.width > 32 && rect.height > 32;
+      }
+
+      function setBox(prefix, rect) {
+        intro.style.setProperty(prefix + '-left', px(rect.left));
+        intro.style.setProperty(prefix + '-top', px(rect.top));
+        intro.style.setProperty(prefix + '-width', px(rect.width));
+        intro.style.setProperty(prefix + '-height', px(rect.height));
+      }
+
+      function setCard(prefix, element, baseRect) {
+        var rect = element.getBoundingClientRect();
+        intro.style.setProperty(prefix + '-left', px(rect.left - baseRect.left));
+        intro.style.setProperty(prefix + '-top', px(rect.top - baseRect.top));
+        intro.style.setProperty(prefix + '-width', px(rect.width));
+        intro.style.setProperty(prefix + '-height', px(rect.height));
+      }
+
+      function preview(card) {
+        return card.querySelector('.post-preview') || card;
+      }
+
+      var listRect = postList.getBoundingClientRect();
+      setBox('--intro', listRect);
+
+      setCard('--intro-worklog', preview(cards[0]), listRect);
+
+      if (cards[1]) {
+        setCard('--intro-post-one', preview(cards[1]), listRect);
+      }
+
+      if (cards[2]) {
+        setCard('--intro-post-two', preview(cards[2]), listRect);
+      }
+
+      var sidebar = document.getElementById('sidebar');
+      if (sidebar && visible(sidebar.getBoundingClientRect())) {
+        setBox('--intro-sidebar', sidebar.getBoundingClientRect());
+        root.classList.add('home-intro-has-sidebar');
+      }
+
+      var topbar = document.getElementById('topbar-wrapper');
+      if (topbar && visible(topbar.getBoundingClientRect())) {
+        setBox('--intro-topbar', topbar.getBoundingClientRect());
+        root.classList.add('home-intro-has-topbar');
+      }
+
+      var panel = document.getElementById('panel-wrapper');
+      if (panel && visible(panel.getBoundingClientRect())) {
+        setBox('--intro-panel', panel.getBoundingClientRect());
+        root.classList.add('home-intro-has-panel');
+      }
+
+      root.classList.add('home-intro-ready');
+      root.classList.remove('home-intro-pending');
+
+      if (window.__homeIntroGateTimer) {
+        window.clearTimeout(window.__homeIntroGateTimer);
+      }
+
+      try {
+        if (!force) {
+          window.sessionStorage.setItem(key, 'seen');
+        }
+      } catch (error) {
+        // sessionStorage can be unavailable in restrictive browser modes.
+      }
+    }
+
+    function initHomeIntro() {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+
+      window.scrollTo(0, 0);
+      window.requestAnimationFrame(measureHomeIntro);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHomeIntro, { once: true });
+    } else {
+      initHomeIntro();
+    }
+  })();
+</script>

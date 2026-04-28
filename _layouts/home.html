@@ -139,6 +139,10 @@ layout: default
 </div>
 <!-- #post-list -->
 
+{% if paginator.page == 1 %}
+  {% include home-intro.html %}
+{% endif %}
+
 {% if paginator.total_pages > 1 %}
   {% include post-paginator.html %}
 {% endif %}

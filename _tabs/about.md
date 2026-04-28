@@ -1,6 +1,7 @@
 ---
 title: Work Archive
 nav_label: Work Log
+description: Monthly append-only work notes for research, engineering, projects, and job preparation.
 icon: fas fa-info-circle
 order: 4
 ---

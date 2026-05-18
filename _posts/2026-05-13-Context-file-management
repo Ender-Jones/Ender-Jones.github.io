@@ -1,0 +1,16 @@
+---
+title: Context file management in projects
+description: 
+date: 
+categories: [blogging]
+tags: [poem, memory]
+pin: false
+math: false
+mermaid: false
+toc: false
+image:
+  path: /assets/img/poems/cherry-blossom-wide.jpg
+  alt: Cherry blossoms lifting into a clear spring sky.
+---
+
+This will be an article about how I manage my project's AI context file in codebase/research folder
